@@ -6,6 +6,9 @@
     "name": "Nathan Rugg",
     "email": "nmrugg@gmail.com"
   },
+  "scripts": {
+    "build": "./build.js --all --skip-em-check"
+  },
   "contributors": [
     {
       "name": "Chess.com",
