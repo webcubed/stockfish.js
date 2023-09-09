@@ -7,7 +7,7 @@
     "email": "nmrugg@gmail.com"
   },
   "scripts": {
-    "build": "./build.js --all --skip-em-check"
+    "build": "./build.js --all --skip-em-check --no-minify"
   },
   "contributors": [
     {
