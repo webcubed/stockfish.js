@@ -2,9 +2,9 @@ name: Build All
 
 on:
   push:
-    branches: ["master"]
+    branches: ["Stockfish11"]
   pull_request:
-    branches: ["master"]
+    branches: ["Stockfish11"]
 env:
   EMSSDK_VERSION: 2.0.30
 jobs:
