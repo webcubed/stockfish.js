@@ -1,0 +1,54 @@
+name: Build All
+
+on:
+  push:
+    branches: ["Stockfish11"]
+  pull_request:
+    branches: ["Stockfish11"]
+env:
+  EMSSDK_VERSION: 2.0.30
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # - uses: lovasoa/setup-emscripten@master
+      #   with:
+      #     emscripten-version: "2.0.26"
+
+      - name: install emsdk
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install $EMSSDK_VERSION
+          ./emsdk activate $EMSSDK_VERSION
+          source ./emsdk_env.sh
+
+      - name: build
+        run: |
+          source "/home/runner/work/stockfish.js/stockfish.js/emsdk/emsdk_env.sh"
+          npm run build --if-present
+          ls src
+      # - name: Find JavaScript and WebAssembly Files
+      #   run: |
+      #     find src -type f \( -name "*.js" -o -name "*.wasm" \) > filelist.txt
+      #     cat filelist.txt
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: |
+            src/*.js
+            src/*.wasm
+            src/*.nnue
