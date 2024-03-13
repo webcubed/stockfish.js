@@ -5,6 +5,7 @@ on:
     branches: ["Stockfish11"]
   pull_request:
     branches: ["Stockfish11"]
+  workflow_dispatch:
 env:
   EMSSDK_VERSION: 2.0.30
 jobs:
